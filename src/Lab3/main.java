@@ -1,8 +1,6 @@
 package Lab3;
 
-import static Lab3.ActionsWithCatalog.SortingTheCatalogByField.SortingByField;
-import static Lab3.Basket.*;
-import static Lab3.EnumsForSortingCatalogByFields.SortingCatalogByField.*;
+import java.util.List;
 
 public class main
 {
@@ -22,32 +20,19 @@ public class main
 складі. Клієнт може продивитись всі свої замовлення та їх стан.
 */
     public static void main(String[] args) throws Exception {
-        Product[]  listOfProducts =new Product[]{new Product("Watch 8.6","Meizu",3000,86),
-                new Product("Iphone","Apple CO",12000,11),
-                new Product("Smart TV","Samsung",33000,0),
-                new Product("Watch 3.6","Huawei",5000,66)};
+        List<Integer> integerList;
 
-        AddTheProductToTheCatalog(listOfProducts);
-        PrintTheCatalog();
-        SortingByField(NAME);
-        System.out.println();
-        System.out.println();
-        PrintTheCatalog();
-        DeleteTheProductFromTheCatalog("Iphone");
-        System.out.println();
-        System.out.println();
-        PrintTheCatalog();
-        System.out.println();
-        System.out.println();
-        AddToTheBasketTheProduct("Smart TV");
-        AddToTheBasketTheProduct("Watch 3.6");
-        AddToTheBasketTheProduct("Watch 8.6");
-        PrintMyBasket();
-        System.out.println();
-        System.out.println();
-        DeleteTheProductFromTheBasket("Watch 8.6");
-        PrintMyBasket();
-
+        Product[]  listOfProducts =new Product[]{new Product("Watch 8.6","Meizu",3000,true),
+                new Product("Iphone","Apple CO",12000,false),
+                new Product("Smart TV","Samsung",33000,true),
+                new Product("Watch 3.6","Huawei",5000,true)
+        };
+        Shop shop=new Shop();
+        shop.addTheProductToTheCatalog(listOfProducts);
+        shop.printTheCatalog();
+        Buyer Edward=new Buyer("Ed2354","2342h");
+        Edward.addTheProductToTheBasket("Watch 8.6");
+        Edward.printMyBasket();
 
 
     }

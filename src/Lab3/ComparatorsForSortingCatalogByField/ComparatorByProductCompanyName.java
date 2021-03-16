@@ -1,4 +1,4 @@
-package Lab3.ComparatorsForSortingCatalogByFields;
+package Lab3.ComparatorsForSortingCatalogByField;
 
 import Lab3.Product;
 

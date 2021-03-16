@@ -1,56 +1,42 @@
 package Lab3;
 
-import java.util.Comparator;
-import java.util.HashMap;
-
 public class Product {
     protected String nameOfTheProduct;
     protected String companyNameOfAProduct;
     protected int priceOfAProduct;
-    protected int amountOfProductInStock;
+    protected boolean isAvailable;
 
-    public Product(String nameOfTheProduct, String companyNameOfAProduct, int priceOfAProduct, int amountOfProductInStock) {
-        this.nameOfTheProduct = nameOfTheProduct;
-        this.companyNameOfAProduct = companyNameOfAProduct;
-        this.priceOfAProduct = priceOfAProduct;
-        this.amountOfProductInStock = amountOfProductInStock;
-    }
-    public Product(){
-
-    }
+    public Product(){ }
 
     public String getNameOfTheProduct() {
         return nameOfTheProduct;
+    }
+    public String getCompanyNameOfAProduct() {
+        return companyNameOfAProduct;
+    }
+    public int    getPriceOfAProduct() {
+        return priceOfAProduct;
+    }
+    public boolean getIsAvailable() {
+        return isAvailable;
     }
 
     public void setNameOfTheProduct(String nameOfTheProduct) {
         this.nameOfTheProduct = nameOfTheProduct;
     }
-
-    public String getCompanyNameOfAProduct() {
-        return companyNameOfAProduct;
-    }
-
-    public void setCompanyNameOfAProduct(String companyNameOfAProduct) {
-        this.companyNameOfAProduct = companyNameOfAProduct;
-    }
-
-    public int getPriceOfAProduct() {
-        return priceOfAProduct;
-    }
-
+    public void setCompanyNameOfAProduct(String companyNameOfAProduct) { this.companyNameOfAProduct = companyNameOfAProduct; }
     public void setPriceOfAProduct(int priceOfAProduct) {
         this.priceOfAProduct = priceOfAProduct;
     }
+    public void setAmountOfProductInStock(boolean isAvaliable) { this.isAvailable = isAvaliable; }
 
-    public int getAmountOfProductInStock() {
-        return amountOfProductInStock;
+
+    public Product(String nameOfTheProduct, String companyNameOfAProduct, int priceOfAProduct, boolean isAvaliable) {
+        this.nameOfTheProduct = nameOfTheProduct;
+        this.companyNameOfAProduct = companyNameOfAProduct;
+        this.priceOfAProduct = priceOfAProduct;
+        this.isAvailable = isAvaliable;
     }
-
-    public void setAmountOfProductInStock(int amountOfProductInStock) {
-        this.amountOfProductInStock = amountOfProductInStock;
-    }
-
 
     @Override
     public String toString() {
@@ -58,7 +44,7 @@ public class Product {
                 "nameOfTheProduct='" + nameOfTheProduct + '\'' +
                 ", companyNameOfAProduct='" + companyNameOfAProduct + '\'' +
                 ", priceOfAProduct=" + priceOfAProduct +
-                ", amountOfProductInStock=" + amountOfProductInStock +
+                ", amountOfProductInStock=" + isAvailable +
                 '}';
     }
 
