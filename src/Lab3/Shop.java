@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Shop {
 
-    protected  ArrayList<Product> catalog =new ArrayList<>();
+    protected static  ArrayList<Product> catalog =new ArrayList<>();
 
     public boolean addTheProductToTheCatalog( Product... products) {
         return Collections.addAll(this.catalog , products);

@@ -6,8 +6,6 @@ public class Product {
     protected int priceOfAProduct;
     protected boolean isAvailable;
 
-    public Product(){ }
-
     public String getNameOfTheProduct() {
         return nameOfTheProduct;
     }

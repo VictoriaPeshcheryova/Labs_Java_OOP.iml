@@ -17,11 +17,44 @@ public class Buyer extends User implements SortingTheCatalogByField{
     }
 
     public void addTheProductToTheBasket(String productsName) {
-
+        for (Product item : Shop.catalog) {
+            if(item.nameOfTheProduct.equals(productsName)){
+                if(!item.isAvailable){
+                    System.out.println("No such product available");
+                    return;
+                }
+                basket.add(item);
+                item.isAvailable = false;
+                return;
+            }
+        }
+        System.out.println("No such product available");
     }
 
     public boolean deleteTheProductFromTheBasket(String nameOfProduct) {
         return basket .removeIf(product -> product.getNameOfTheProduct().equals(nameOfProduct));
+    }
+
+    public void searchItemInMyBasketName(String nameOfProduct){
+        for(Product product: basket)
+        {
+            if(product.nameOfTheProduct.equals(nameOfProduct))
+            {System.out.println(product);}
+        }
+    }
+    public void searchItemInMyBasketCompanyName(String companyName){
+        for(Product product: basket)
+        {
+            if(product.companyNameOfAProduct.equals(companyName))
+            {System.out.println(product);}
+        }
+    }
+    public void searchItemInMyBasketPrice(int priceOfProduct){
+        for(Product product: basket)
+        {
+            if(product.priceOfAProduct==priceOfProduct)
+            {System.out.println(product);}
+        }
     }
 
     @Override
