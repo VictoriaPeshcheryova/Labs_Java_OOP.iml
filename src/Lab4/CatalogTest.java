@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CatalogTest {
     protected static ArrayList<Product> catalog=new ArrayList<>();
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
     @Test
     void addTheProductToTheCatalog() {
         Product product=new Product("Watch 8.6","Meizu",3000,86);
