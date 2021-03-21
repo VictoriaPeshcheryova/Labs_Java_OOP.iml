@@ -35,26 +35,38 @@ public class Buyer extends User implements SortingTheCatalogByField{
         return basket .removeIf(product -> product.getNameOfTheProduct().equals(nameOfProduct));
     }
 
-    public void searchItemInMyBasketName(String nameOfProduct){
+    public boolean searchItemInMyBasketName(String nameOfProduct){
         for(Product product: basket)
         {
             if(product.nameOfTheProduct.equals(nameOfProduct))
-            {System.out.println(product);}
+            {
+                System.out.println(product.toString());
+                return true;
+            }
         }
+        return false;
     }
-    public void searchItemInMyBasketCompanyName(String companyName){
+    public boolean searchItemInMyBasketCompanyName(String companyName){
         for(Product product: basket)
         {
             if(product.companyNameOfAProduct.equals(companyName))
-            {System.out.println(product);}
+            {
+                System.out.println(product);
+                return true;
+            }
         }
+        return false;
     }
-    public void searchItemInMyBasketPrice(int priceOfProduct){
+    public boolean searchItemInMyBasketPrice(int priceOfProduct){
         for(Product product: basket)
         {
             if(product.priceOfAProduct==priceOfProduct)
-            {System.out.println(product);}
+            {
+                System.out.println(product);
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
@@ -77,8 +89,8 @@ public class Buyer extends User implements SortingTheCatalogByField{
     }
 
 
-    public void printMyBasket(){
-        System.out.println(basket.toString());
+    public String printMyBasket(){
+        return basket.toString();
     }
 
     @Override

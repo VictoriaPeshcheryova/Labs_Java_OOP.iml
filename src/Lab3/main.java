@@ -15,20 +15,15 @@ public class main
         };
         Shop shop=new Shop();
         shop.addTheProductToTheCatalog(listOfProducts);
-        shop.printTheCatalog();
+        System.out.println(shop.printTheCatalog());
         Buyer Edward=new Buyer("Ed2354","2342h");
         Edward.addTheProductToTheBasket("Watch 3.6");
         Edward.addTheProductToTheBasket("Smart TV");
-        Edward.printMyBasket();
+        System.out.println(Edward.printMyBasket());
         Edward.SortingByField(SortingCatalogByField.NAME);
-        Edward.printMyBasket();
+        System.out.println(Edward.printMyBasket());
         Edward.searchItemInMyBasketName("Smart TV");
         Edward.searchItemInMyBasketCompanyName("Huawei");
         Edward.searchItemInMyBasketPrice(33000);
-
-
-
-
-
     }
 }

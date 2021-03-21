@@ -16,9 +16,9 @@ public class Shop {
     }
 
 
-    public void printTheCatalog()
+    public String printTheCatalog()
     {
-        System.out.println(catalog );
+       return catalog.toString();
     }
 
 
