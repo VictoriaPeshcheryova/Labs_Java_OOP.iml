@@ -8,56 +8,56 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductTest {
 
     @Test
-    void getNameOfTheProduct() {
+    void testGetNameOfTheProduct() {
         Product product=new Product("Iphone","Apple",20000,true);
         String expected="Iphone";
         assertEquals(expected,product.getNameOfTheProduct());
     }
 
     @Test
-    void getCompanyNameOfAProduct() {
+    void testGetCompanyNameOfAProduct() {
         Product product=new Product("Iphone","Apple",20000,true);
         String expected="Apple";
         assertEquals(expected,product.getCompanyNameOfAProduct());
     }
 
     @Test
-    void getPriceOfAProduct() {
+    void testGetPriceOfAProduct() {
         Product product=new Product("Iphone","Apple",20000,true);
         int expected=20000;
         assertEquals(expected,product.getPriceOfAProduct());
     }
 
     @Test
-    void getIsAvailable() {
+    void testGetIsAvailable() {
         Product product=new Product("Iphone","Apple",20000,true);
         boolean expected=true;
         assertEquals(expected,product.getIsAvailable());
     }
 
     @Test
-    void setNameOfTheProduct() {
+    void testSetNameOfTheProduct() {
         Product product=new Product("Iphone","Apple",20000,true);
         product.setNameOfTheProduct("Watch 1.0");
         assertEquals("Watch 1.0",product.getNameOfTheProduct());
     }
 
     @Test
-    void setCompanyNameOfAProduct() {
+    void testSetCompanyNameOfAProduct() {
         Product product=new Product("Iphone","Apple",20000,true);
         product.setCompanyNameOfAProduct("Samsung");
         assertEquals("Samsung",product.getCompanyNameOfAProduct());
     }
 
     @Test
-    void setPriceOfAProduct() {
+    void testSetPriceOfAProduct() {
         Product product=new Product("Iphone","Apple",20000,true);
         product.setPriceOfAProduct(30000);
         assertEquals(30000,product.getPriceOfAProduct());
     }
 
     @Test
-    void setAmountOfProductInStock() {
+    void testSetAmountOfProductInStock() {
         Product product=new Product("Iphone","Apple",20000,true);
         product.setAmountOfProductInStock(false);
         assertEquals(false,product.getIsAvailable());

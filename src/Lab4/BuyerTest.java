@@ -1,8 +1,10 @@
 package Lab4;
 
 import Lab3.Buyer;
+import Lab3.EnumsForSortingCatalogByField.SortingCatalogByField;
 import Lab3.Product;
 import Lab3.Shop;
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +28,7 @@ class BuyerTest {
     }
 
     @Test
-    void deleteTheProductFromTheBasket() {
+    void testDeleteTheProductFromTheBasket() {
         Shop shop=new Shop();
         ArrayList<Product> catalog =new ArrayList<>();
         Product[]  listOfProduct =new Product[]{new Product("Watch 8.6","Meizu",3000,true),
@@ -42,7 +44,7 @@ class BuyerTest {
     }
 
     @Test
-    void searchItemInMyBasketName() {
+    void testSearchItemInMyBasketName() {
         Shop shop=new Shop();
         ArrayList<Product> catalog =new ArrayList<>();
         Product[]  listOfProduct =new Product[]{new Product("Watch 8.6","Meizu",3000,true),
@@ -58,7 +60,7 @@ class BuyerTest {
     }
 
     @Test
-    void searchItemInMyBasketCompanyName() {
+    void testSearchItemInMyBasketCompanyName() {
         Shop shop=new Shop();
         ArrayList<Product> catalog =new ArrayList<>();
         Product[]  listOfProduct =new Product[]{new Product("Watch 8.6","Meizu",3000,true),
@@ -74,7 +76,7 @@ class BuyerTest {
     }
 
     @Test
-    void searchItemInMyBasketPrice() {
+    void testSearchItemInMyBasketPrice() {
         Shop shop=new Shop();
         ArrayList<Product> catalog =new ArrayList<>();
         Product[]  listOfProduct =new Product[]{new Product("Watch 8.6","Meizu",3000,true),
@@ -90,12 +92,26 @@ class BuyerTest {
     }
 
     @Test
-    void sortingByField() {
-
+    void testSortingByField() {
+        Shop shop=new Shop();
+        ArrayList<Product> catalog =new ArrayList<>();
+        Product[]  listOfProduct =new Product[]{new Product("Watch 8.6","Meizu",3000,true),
+                new Product("Iphone","Apple CO",12000,false),
+                new Product("Smart TV","Samsung",33000,true),
+                new Product("Watch 3.6","Huawei",5000,true)
+        };
+        shop.addTheProductToTheCatalog(listOfProduct);
+        Buyer Carson=new Buyer("12fdfg21","24246");
+        Carson.addTheProductToTheBasket("Watch 3.6");
+        Carson.addTheProductToTheBasket("Smart TV");
+        Carson.SortingByField(SortingCatalogByField.NAME);
+        String expected="[Product{nameOfTheProduct='Smart TV', companyNameOfAProduct='Samsung', priceOfAProduct=33000, amountOfProductInStock=false}, " +
+                "Product{nameOfTheProduct='Watch 3.6', companyNameOfAProduct='Huawei', priceOfAProduct=5000, amountOfProductInStock=false}]";
+        assertEquals(expected,Carson.printMyBasket());
     }
 
     @Test
-    void printMyBasket() {
+    void testPrintMyBasket() {
         Product[]  listOfProduct =new Product[]{new Product("Watch 8.6","Meizu",3000,true)
         };
         Shop shop=new Shop();
