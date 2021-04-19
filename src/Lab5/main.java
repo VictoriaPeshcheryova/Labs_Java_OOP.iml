@@ -39,18 +39,18 @@ public class main {
                 ""+productSelect.getPriceOfAProduct()+"," +
                 " "+ productSelect.isAvailable());
 
-        /**Delete person by id**/
+        /**Delete user/product by id**/
         udi.delete(2);
         pdi.delete(2);
 
-        /**Update person**/
+        /**Update user/product**/
         User userUpdate = new User("Tom","J3333");
         udi.update(userUpdate,1);
 
         Product productUpdate = new Product("Watches", "Samsung",3300,false);
         pdi.update(productUpdate,1);
 
-        /**Select all persons**/
+        /**Select all users/products**/
 
         List<User> users = udi.selectAll();
         for(User u : users) {
