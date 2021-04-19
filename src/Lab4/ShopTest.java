@@ -37,7 +37,6 @@ class ShopTest  {
       assertTrue(expected);
     }
 
-
     @Test
     void testDeleteTheProductFromTheCatalog() {
         Shop shop=new Shop();
