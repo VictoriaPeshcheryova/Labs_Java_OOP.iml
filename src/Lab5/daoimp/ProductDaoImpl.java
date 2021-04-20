@@ -1,39 +1,15 @@
 package Lab5.daoimp;
 
 import Lab5.ConnectionConfiguration;
-import Lab5.dao.ProductDao;
-import Lab5.entities.Product;
+import Lab5.dao.Dao;
 import Lab5.entities.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class ProductDaoImpl implements ProductDao {
-
-    @Override
-    public void createProductTable() throws SQLException {
-        Connection connection=null;
-        Statement statement=null;
-
-        try{
-            connection= ConnectionConfiguration.getConnection();
-            statement=connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS product (id int primary key unique auto_increment," +
-                    "name varchar(20),company varchar(20),price int(5),available boolean)");
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }finally{
-            if(statement!=null){
-                statement.close();
-            }
-            if(connection!=null){
-                connection.close();
-            }
-
-        }
-    }
+public class ProductDaoImpl implements Dao<Product> {
 
     @Override
     public void insert(Product product) throws SQLException {
@@ -241,4 +217,7 @@ public class ProductDaoImpl implements ProductDao {
             }
         }
     }
+
+
+
 }

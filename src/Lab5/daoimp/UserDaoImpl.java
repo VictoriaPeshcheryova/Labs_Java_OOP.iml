@@ -1,39 +1,15 @@
 package Lab5.daoimp;
 
 import Lab5.ConnectionConfiguration;
-import Lab5.dao.UserDao;
+import Lab5.dao.Dao;
 import Lab5.entities.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl implements Dao <User>{
 
-
-    @Override
-    public void createUserTable() throws SQLException {
-        Connection connection=null;
-        Statement statement=null;
-
-        try{
-            connection= ConnectionConfiguration.getConnection();
-            statement=connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS user (id int primary key unique auto_increment," +
-                    "login varchar(20),password varchar(20))");
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }finally{
-            if(statement!=null){
-                statement.close();
-            }
-            if(connection!=null){
-                connection.close();
-            }
-
-        }
-    }
 
     @Override
     public void insert(User user) throws SQLException {
