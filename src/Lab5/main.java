@@ -39,9 +39,10 @@ public class main {
                 ""+productSelect.getPriceOfAProduct()+"," +
                 " "+ productSelect.isAvailable());
 
+
         /**Delete user/product by id**/
-        udi.delete(2);
-        pdi.delete(2);
+        udi.delete(1);
+        pdi.delete(1);
 
         /**Update user/product**/
         User userUpdate = new User("Tom","J3333");
