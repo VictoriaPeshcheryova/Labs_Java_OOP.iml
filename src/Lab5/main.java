@@ -19,34 +19,35 @@ public class main {
         ProductDaoImpl pdi=new ProductDaoImpl();
 
         /**Insert a new record**/
-       // User user = new User("admin","1111");
-       // udi.insert(user);
+        User user = new User("admin","1111");
+        udi.insert(user);
 
-       // Product product=new Product("Smart TV", "Apple",33000,true);
-       // pdi.insert(product);
+
+        Product product=new Product("Smart TV", "Apple",33000,true);
+        pdi.insert(product);
 
         /**Select by id**/
-        //User userSelect = udi.selectBYId(1);
-        //System.out.println(userSelect.getId()+", "+userSelect.getLogin()+", "+userSelect.getPassword());
+        User userSelect = udi.selectBYId(1);
+        System.out.println(userSelect.getId()+", "+userSelect.getLogin()+", "+userSelect.getPassword());
 
-       // Product productSelect = pdi.selectBYId(1);
-       // System.out.println(productSelect.getId()+", " +
-               // ""+productSelect.getNameOfTheProduct()+", " +
-              //  ""+productSelect.getCompanyNameOfAProduct()+", " +
-              //  ""+productSelect.getPriceOfAProduct()+"," +
-             //   " "+ productSelect.isAvailable());
+        Product productSelect = pdi.selectBYId(1);
+        System.out.println(productSelect.getId()+", " +
+                ""+productSelect.getNameOfTheProduct()+", " +
+               ""+productSelect.getCompanyNameOfAProduct()+", " +
+               ""+productSelect.getPriceOfAProduct()+"," +
+               " "+ productSelect.isAvailable());
 
 
         /**Delete user/product by id**/
-       // udi.delete(1);
-        //pdi.delete(1);
+        udi.delete(1);
+        pdi.delete(1);
 
         /**Update user/product**/
-        //User userUpdate = new User("Tom","J3333");
-        //udi.update(userUpdate,1);
+        User userUpdate = new User("Tom","J3333");
+        udi.update(userUpdate,1);
 
-       // Product productUpdate = new Product("Watches", "Samsung",3300,false);
-       // pdi.update(productUpdate,1);
+        Product productUpdate = new Product("Watches", "Samsung",3300,false);
+        pdi.update(productUpdate,1);
 
         /**Select all users/products**/
 

@@ -23,8 +23,7 @@ public class UserDaoImpl implements Dao <User>{
             preparedStatement.setString(1,user.getLogin());
             preparedStatement.setString(2,user.getPassword());
             preparedStatement.executeUpdate();
-            System.out.println("INSERT INTO users (login,password)" +
-                    "VALUES(?,?)");
+            System.out.println("INSERTED SUCCESSFULLY!");
         } catch(Exception ex){
             ex.printStackTrace();
         }
@@ -108,7 +107,7 @@ public class UserDaoImpl implements Dao <User>{
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
-            System.out.println("DELETE FROM user WHERE id = ?");
+            System.out.println("DELETED SUCCESSFULLY!");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,8 +133,7 @@ public class UserDaoImpl implements Dao <User>{
             preparedStatement.setInt(3, id);
             preparedStatement.executeUpdate();
 
-            System.out.println("UPDATE user SET " +
-                    "login = ?, password = ? WHERE id = ?");
+            System.out.println("UPDATED SUCCESSFULLY!");
 
         } catch (Exception e) {
             e.printStackTrace();
