@@ -1,5 +1,6 @@
 package Lab5.daoimp;
 
+import Lab5.ClosingThreads.ClosingThreads;
 import Lab5.ConnectionConfiguration;
 import Lab5.dao.Dao;
 import Lab5.entities.User;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements Dao <User>{
-
+    ClosingThreads closingThreads=new ClosingThreads();
 
     @Override
     public void insert(User user) throws SQLException {
@@ -28,11 +29,9 @@ public class UserDaoImpl implements Dao <User>{
             ex.printStackTrace();
         }
         finally{
-            if(preparedStatement!=null)
-                preparedStatement.close();
-            if(connection!=null){
-                connection.close();
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingPreparedStatement(preparedStatement);
+
         }
     }
 
@@ -59,36 +58,11 @@ public class UserDaoImpl implements Dao <User>{
             ex.printStackTrace();
         }
         finally{
-            if(resultSet!=null)
-            {
-                try {
-                    resultSet.close();
-                }
-                catch(Exception ex){
-                    ex.printStackTrace();
-                }
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingPreparedStatement(preparedStatement);
+            closingThreads.ClosingResultSet(resultSet);
 
-            if(preparedStatement!=null)
-            {
-                    try {
-                        preparedStatement.close();
-                    }
-                    catch(Exception ex){
-                        ex.printStackTrace();
-                    }
-
-            }
-                if(connection!=null) {
-                        try {
-                            connection.close();
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-
-
-                }
+        }
         return user;
     }
 
@@ -115,27 +89,10 @@ public class UserDaoImpl implements Dao <User>{
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingStatement(statement);
+            closingThreads.ClosingResultSet(resultSet);
+
         }
         return users;
     }
@@ -156,20 +113,9 @@ public class UserDaoImpl implements Dao <User>{
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingPreparedStatement(preparedStatement);
+
         }
     }
 
@@ -194,20 +140,8 @@ public class UserDaoImpl implements Dao <User>{
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingPreparedStatement(preparedStatement);
         }
     }
 }

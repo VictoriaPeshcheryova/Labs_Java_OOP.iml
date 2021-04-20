@@ -39,7 +39,7 @@ public class main {
 
         /**Delete user/product by id**/
        // udi.delete(1);
-        pdi.delete(1);
+        //pdi.delete(1);
 
         /**Update user/product**/
         //User userUpdate = new User("Tom","J3333");

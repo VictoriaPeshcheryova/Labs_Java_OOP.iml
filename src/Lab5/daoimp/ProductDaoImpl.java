@@ -1,5 +1,6 @@
 package Lab5.daoimp;
 
+import Lab5.ClosingThreads.ClosingThreads;
 import Lab5.ConnectionConfiguration;
 import Lab5.dao.Dao;
 import Lab5.entities.Product;
@@ -7,10 +8,9 @@ import Lab5.entities.Product;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class ProductDaoImpl implements Dao<Product> {
-
+    ClosingThreads closingThreads=new ClosingThreads();
     @Override
     public void insert(Product product) throws SQLException {
         Connection connection=null;
@@ -24,17 +24,13 @@ public class ProductDaoImpl implements Dao<Product> {
             preparedStatement.setInt(3,product.getPriceOfAProduct());
             preparedStatement.setBoolean(4,product.isAvailable());
             preparedStatement.executeUpdate();
-            System.out.println("INSERT INTO user (name,company,price,available)" +
-                    "VALUES (?, ?,?,?)");
+            System.out.println("INSERTED SUCCESSFULLY");
         } catch(Exception ex){
             ex.printStackTrace();
         }
         finally{
-            if(preparedStatement!=null)
-                preparedStatement.close();
-            if(connection!=null){
-                connection.close();
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingPreparedStatement(preparedStatement);
         }
     }
 
@@ -62,35 +58,9 @@ public class ProductDaoImpl implements Dao<Product> {
             ex.printStackTrace();
         }
         finally{
-            if(resultSet!=null)
-            {
-                try {
-                    resultSet.close();
-                }
-                catch(Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-
-            if(preparedStatement!=null)
-            {
-                try {
-                    preparedStatement.close();
-                }
-                catch(Exception ex){
-                    ex.printStackTrace();
-                }
-
-            }
-            if(connection!=null) {
-                try {
-                    connection.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingPreparedStatement(preparedStatement);
+            closingThreads.ClosingResultSet(resultSet);
         }
         return product;
     }
@@ -99,14 +69,13 @@ public class ProductDaoImpl implements Dao<Product> {
     public List<Product> selectAll() {
         List<Product> products = new ArrayList<Product>();
         Connection connection = null;
-        Statement statement = null;
+        Statement statement= null;
         ResultSet resultSet = null;
 
         try {
             connection = ConnectionConfiguration.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM product");
-
             while (resultSet.next()) {
                 Product product = new Product();
                 product.setId(resultSet.getInt("id"));
@@ -120,27 +89,9 @@ public class ProductDaoImpl implements Dao<Product> {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingStatement(statement);
+            closingThreads.ClosingResultSet(resultSet);
         }
         return products;
     }
@@ -156,25 +107,14 @@ public class ProductDaoImpl implements Dao<Product> {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
-            System.out.println("DELETE FROM product WHERE id = ?");
+            System.out.println("DELETED SUCCESSFULLY!");
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingPreparedStatement(preparedStatement);
+
         }
     }
 
@@ -195,29 +135,14 @@ public class ProductDaoImpl implements Dao<Product> {
             preparedStatement.setInt(5, id);
             preparedStatement.executeUpdate();
 
-            System.out.println("UPDATE product SET " +
-                    "login = ?, password = ? WHERE id = ?");
+            System.out.println("UPDATED SUCCESSFULLY!");
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closingThreads.ClosingConnection(connection);
+            closingThreads.ClosingPreparedStatement(preparedStatement);
         }
     }
-
-
 
 }
