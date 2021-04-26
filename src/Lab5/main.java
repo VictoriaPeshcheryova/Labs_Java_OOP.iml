@@ -18,6 +18,50 @@ public class main {
         UserDaoImpl udi=new UserDaoImpl();
         ProductDaoImpl pdi=new ProductDaoImpl();
 
+        /**Insert a new record**/
+        User user = new User("admin","1111");
+        udi.insert(user);
+        Product product=new Product("Smart TV", "Apple",33000,true);
+        pdi.insert(product);
+
+        /**Select by id**/
+        User userSelect = udi.selectBYId(1);
+        System.out.println(userSelect.getId()+", "+userSelect.getLogin()+", "+userSelect.getPassword());
+
+        Product productSelect = pdi.selectBYId(1);
+        System.out.println(productSelect.getId()+", " +
+                ""+productSelect.getNameOfTheProduct()+", " +
+               ""+productSelect.getCompanyNameOfAProduct()+", " +
+               ""+productSelect.getPriceOfAProduct()+"," +
+               " "+ productSelect.isAvailable());
+
+
+        /**Delete user/product by id**/
+        udi.delete("admin");
+        pdi.delete("Watches");
+
+        /**Update user/product**/
+        User userUpdate = new User("Tom","J3333");
+        udi.update(userUpdate,"admin");
+
+        Product productUpdate = new Product("Watches", "Samsung",3300,false);
+        pdi.update(productUpdate,"Apple TV");
+
+        /**Select all users/products**/
+
+        List<User> users = udi.selectAll();
+        for(User u : users) {
+            System.out.println(u.getId()+", "+u.getLogin()+", "+u.getPassword());
+        }
+
+        List<Product> products = pdi.selectAll();
+        for(Product p : products) {
+            System.out.println(p.getId()+", " +
+                    ""+p.getNameOfTheProduct()+", " +
+                    ""+p.getCompanyNameOfAProduct()+", " +
+                    ""+p.getPriceOfAProduct()+"," +
+                    " "+ p.isAvailable());
+        }
 
     }
 
