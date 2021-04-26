@@ -15,16 +15,29 @@ public class ProductDaoImpl implements Dao<Product> {
     public void insert(Product product) throws SQLException {
         Connection connection=null;
         PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement1=null;
+        ResultSet resultSet=null;
         try{
-            connection=ConnectionConfiguration.getConnection();
-            preparedStatement=connection.prepareStatement("INSERT INTO product (name,company,price,available)" +
-                    "VALUES (?, ?,?,?)");
-            preparedStatement.setString(1,product.getNameOfTheProduct());
-            preparedStatement.setString(2,product.getCompanyNameOfAProduct());
-            preparedStatement.setInt(3,product.getPriceOfAProduct());
-            preparedStatement.setBoolean(4,product.isAvailable());
-            preparedStatement.executeUpdate();
-            System.out.println("INSERTED SUCCESSFULLY");
+            connection = ConnectionConfiguration.getConnection();
+            preparedStatement1=connection.prepareStatement
+                    ("SELECT * FROM product where name=?");
+            preparedStatement1.setString(1,product.getNameOfTheProduct());
+            resultSet=preparedStatement1.executeQuery();
+            if(resultSet.next()){
+            System.out.println("We already have this product");
+            }
+            else{
+                connection=ConnectionConfiguration.getConnection();
+                preparedStatement=connection.prepareStatement("INSERT INTO product (name,company,price,available)" +
+                        "VALUES (?, ?,?,?)");
+                preparedStatement.setString(1,product.getNameOfTheProduct());
+                preparedStatement.setString(2,product.getCompanyNameOfAProduct());
+                preparedStatement.setInt(3,product.getPriceOfAProduct());
+                preparedStatement.setBoolean(4,product.isAvailable());
+                preparedStatement.executeUpdate();
+                System.out.println("INSERTED SUCCESSFULLY");
+            }
+
         } catch(Exception ex){
             ex.printStackTrace();
         }
@@ -97,18 +110,26 @@ public class ProductDaoImpl implements Dao<Product> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String oldName) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
+        PreparedStatement preparedStatement1=null;
+        ResultSet resultSet=null;
         try {
             connection = ConnectionConfiguration.getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM product WHERE id = ?");
-            preparedStatement.setInt(1, id);
+            preparedStatement1=connection.prepareStatement
+                    ("SELECT name, company, price, available FROM product WHERE name = ? ");
+            preparedStatement1.setString(1,oldName);
+            resultSet=preparedStatement1.executeQuery();
+            if(resultSet.next()){
+            connection = ConnectionConfiguration.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM product WHERE name = ?");
+            preparedStatement.setString(1, oldName);
             preparedStatement.executeUpdate();
-
-            System.out.println("DELETED SUCCESSFULLY!");
-
+            System.out.println("DELETED SUCCESSFULLY!");}
+            else{
+                System.out.println("There's no such product to delete!!!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -119,29 +140,39 @@ public class ProductDaoImpl implements Dao<Product> {
     }
 
     @Override
-    public void update(Product product, int id) {
-
+    public void update(Product product, String oldName) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement1=null;
+        ResultSet resultSet=null;
         try {
             connection = ConnectionConfiguration.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE product SET " +
-                    "name = ?, company = ?, price = ? , available = ? WHERE id = ?");
+            preparedStatement1=connection.prepareStatement
+                    ("SELECT name, company, price, available FROM product WHERE name = ? ");
+            preparedStatement1.setString(1,oldName);
+            resultSet=preparedStatement1.executeQuery();
+            if(resultSet.next()){
+                preparedStatement = connection.prepareStatement("UPDATE product SET " +
+                        "name = ?, company = ?, price = ? , available = ? WHERE name= ?");
 
-            preparedStatement.setString(1, product.getNameOfTheProduct());
-            preparedStatement.setString(2, product.getCompanyNameOfAProduct());
-            preparedStatement.setInt(3, product.getPriceOfAProduct());
-            preparedStatement.setBoolean(4, product.isAvailable());
-            preparedStatement.setInt(5, id);
-            preparedStatement.executeUpdate();
-
-            System.out.println("UPDATED SUCCESSFULLY!");
+                preparedStatement.setString(1, product.getNameOfTheProduct());
+                preparedStatement.setString(2, product.getCompanyNameOfAProduct());
+                preparedStatement.setInt(3, product.getPriceOfAProduct());
+                preparedStatement.setBoolean(4, product.isAvailable());
+                preparedStatement.setString(5, oldName);
+                preparedStatement.executeUpdate();
+                System.out.println("UPDATED SUCCESSFULLY!");
+            }
+            else{
+                System.out.println("There's no such product to update!!!");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             closingThreads.ClosingConnection(connection);
             closingThreads.ClosingPreparedStatement(preparedStatement);
+            closingThreads.ClosingResultSet(resultSet);
         }
     }
 

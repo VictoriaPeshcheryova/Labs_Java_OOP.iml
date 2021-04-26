@@ -16,14 +16,25 @@ public class UserDaoImpl implements Dao <User>{
     public void insert(User user) throws SQLException {
         Connection connection=null;
         PreparedStatement preparedStatement=null;
+        PreparedStatement preparedStatement1=null;
+        ResultSet resultSet=null;
         try{
+            connection = ConnectionConfiguration.getConnection();
+            preparedStatement1=connection.prepareStatement("SELECT login, password FROM user where login=? OR password=?");
+            preparedStatement1.setString(1, user.getLogin());
+            preparedStatement1.setString(2, user.getPassword());
+            resultSet=preparedStatement1.executeQuery();
+            if(resultSet.next()){
+                System.out.println("Username/password was taken!!!");
+            }
+            else{
             connection=ConnectionConfiguration.getConnection();
-            preparedStatement=connection.prepareStatement("INSERT INTO user (login,password)" +
-                    "VALUES (?, ?)");
+            preparedStatement=connection.prepareStatement("INSERT INTO user (login,password)" + "VALUES (?, ?)");
             preparedStatement.setString(1,user.getLogin());
             preparedStatement.setString(2,user.getPassword());
             preparedStatement.executeUpdate();
             System.out.println("INSERTED SUCCESSFULLY!");
+            }
         } catch(Exception ex){
             ex.printStackTrace();
         }
@@ -97,17 +108,26 @@ public class UserDaoImpl implements Dao <User>{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String oldLogin) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
+        PreparedStatement preparedStatement1=null;
+        ResultSet resultSet=null;
         try {
             connection = ConnectionConfiguration.getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM user WHERE id = ?");
-            preparedStatement.setInt(1, id);
+            preparedStatement1=connection.prepareStatement
+                    ("SELECT login, password FROM user WHERE login = ? ");
+            preparedStatement1.setString(1,oldLogin);
+            resultSet=preparedStatement1.executeQuery();
+            if(resultSet.next()){
+            connection = ConnectionConfiguration.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM user WHERE login = ?");
+            preparedStatement.setString(1, oldLogin);
             preparedStatement.executeUpdate();
-
-            System.out.println("DELETED SUCCESSFULLY!");
+            System.out.println("DELETED SUCCESSFULLY!");}
+            else{
+                System.out.println("There is no such user to delete!");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,27 +139,40 @@ public class UserDaoImpl implements Dao <User>{
     }
 
     @Override
-    public void update(User user, int id) {
+    public void update(User user, String oldLogin) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement1=null;
+        ResultSet resultSet=null;
 
         try {
             connection = ConnectionConfiguration.getConnection();
+            preparedStatement1=connection.prepareStatement
+                    ("SELECT login, password FROM user WHERE login = ? ");
+            preparedStatement1.setString(1,oldLogin);
+            resultSet=preparedStatement1.executeQuery();
+            if(resultSet.next()){
+            connection = ConnectionConfiguration.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE user SET " +
-                    "login = ?, password = ? WHERE id = ?");
+                    "login = ?, password = ? WHERE login = ?");
 
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setInt(3, id);
+            preparedStatement.setString(3, oldLogin);
             preparedStatement.executeUpdate();
 
-            System.out.println("UPDATED SUCCESSFULLY!");
+            System.out.println("UPDATED SUCCESSFULLY!");}
+            else{
+                System.out.println("There is no such user to update!");
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             closingThreads.ClosingConnection(connection);
             closingThreads.ClosingPreparedStatement(preparedStatement);
+            closingThreads.ClosingResultSet(resultSet);
         }
     }
 }
